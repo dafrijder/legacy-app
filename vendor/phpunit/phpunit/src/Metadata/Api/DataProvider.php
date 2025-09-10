@@ -9,12 +9,16 @@
  */
 namespace PHPUnit\Metadata\Api;
 
+use const JSON_ERROR_NONE;
+use const PREG_OFFSET_CAPTURE;
 use function array_key_exists;
-use function array_merge;
 use function assert;
 use function explode;
+use function get_debug_type;
+use function is_a;
 use function is_array;
 use function is_int;
+use function is_string;
 use function json_decode;
 use function json_last_error;
 use function json_last_error_msg;
@@ -23,6 +27,7 @@ use function preg_replace;
 use function rtrim;
 use function sprintf;
 use function str_replace;
+use function str_starts_with;
 use function strlen;
 use function substr;
 use function trim;
@@ -31,6 +36,7 @@ use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\TestData\MoreThanOneDataSetFromDataProviderException;
 use PHPUnit\Event\TestData\TestDataCollection;
 use PHPUnit\Framework\InvalidDataProviderException;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Metadata\DataProvider as DataProviderMetadata;
 use PHPUnit\Metadata\MetadataCollection;
 use PHPUnit\Metadata\Parser\Registry as MetadataRegistry;
@@ -39,9 +45,10 @@ use PHPUnit\Util\Reflection;
 use ReflectionClass;
 use ReflectionMethod;
 use Throwable;
-use Traversable;
 
 /**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final class DataProvider
@@ -101,6 +108,19 @@ final class DataProvider
 
         foreach ($dataProvider as $_dataProvider) {
             assert($_dataProvider instanceof DataProviderMetadata);
+
+            if (is_a($_dataProvider->className(), TestCase::class, true) &&
+                str_starts_with($_dataProvider->methodName(), 'test')) {
+                Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
+                    sprintf(
+                        'The name of the data provider method %s::%s() used by test method %s::%s() begins with "test", therefore PHPUnit also treats it as a test method',
+                        $_dataProvider->className(),
+                        $_dataProvider->methodName(),
+                        $className,
+                        $methodName,
+                    ),
+                );
+            }
 
             $dataProviderMethod = new Event\Code\ClassMethod($_dataProvider->className(), $_dataProvider->methodName());
 
@@ -176,14 +196,11 @@ final class DataProvider
                 );
             }
 
-            if ($data instanceof Traversable) {
-                $origData = $data;
-                $data     = [];
-
-                foreach ($origData as $key => $value) {
-                    if (is_int($key)) {
-                        $data[] = $value;
-                    } elseif (array_key_exists($key, $data)) {
+            foreach ($data as $key => $value) {
+                if (is_int($key)) {
+                    $result[] = $value;
+                } elseif (is_string($key)) {
+                    if (array_key_exists($key, $result)) {
                         Event\Facade::emitter()->dataProviderMethodFinished(
                             $testMethod,
                             ...$methodsCalled,
@@ -195,14 +212,17 @@ final class DataProvider
                                 $key,
                             ),
                         );
-                    } else {
-                        $data[$key] = $value;
                     }
-                }
-            }
 
-            if (is_array($data)) {
-                $result = array_merge($result, $data);
+                    $result[$key] = $value;
+                } else {
+                    throw new InvalidDataProviderException(
+                        sprintf(
+                            'The key must be an integer or a string, %s given',
+                            get_debug_type($key),
+                        ),
+                    );
+                }
             }
         }
 
@@ -236,7 +256,7 @@ final class DataProvider
     {
         $docComment = (new ReflectionMethod($className, $methodName))->getDocComment();
 
-        if (!$docComment) {
+        if ($docComment === false) {
             return null;
         }
 
@@ -249,14 +269,14 @@ final class DataProvider
             return null;
         }
 
-        $offset            = strlen($matches[0][0]) + $matches[0][1];
+        $offset            = strlen($matches[0][0]) + (int) $matches[0][1];
         $annotationContent = substr($docComment, $offset);
         $data              = [];
 
         foreach (explode("\n", $annotationContent) as $candidateRow) {
             $candidateRow = trim($candidateRow);
 
-            if ($candidateRow[0] !== '[') {
+            if ($candidateRow === '' || $candidateRow[0] !== '[') {
                 break;
             }
 
