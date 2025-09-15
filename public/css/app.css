@@ -567,6 +567,26 @@ pre code {
         max-width: 1140px;
     }
 }
+
+.col-md-4{
+    background-color: #e9ecef;
+}
+
+.col-md-4 a{
+    color: #212529;
+    font-weight: bold;
+}
+
+.col-md-4 a:hover{
+    color: #3490dc;
+    text-decoration: none;
+}
+
+.col-md-4 h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -4810,6 +4830,11 @@ a.badge-dark:focus, a.badge-dark.focus {
     margin-bottom: 2rem;
     background-color: #e9ecef;
     border-radius: 0.3rem;
+}
+
+.jumbotron .container h1{
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 @media (min-width: 576px) {
     .jumbotron {
@@ -10025,3 +10050,4 @@ a.text-dark:hover, a.text-dark:focus {
     color: #ccc;
     content: "/ ";
 }
+
