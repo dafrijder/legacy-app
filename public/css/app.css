@@ -10057,13 +10057,13 @@ a.text-dark:hover, a.text-dark:focus {
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 10px;
-    justify-items: center;
+    justify-content: space-around;
     padding: 10px;
     border-radius: 0.25rem;
     margin-bottom: 1rem;
 }
 
 .manual-list a {
-    color: #3490dc;
+    color: #212529;
     font-weight: bold;
 }
