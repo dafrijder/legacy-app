@@ -20,6 +20,9 @@
     ?>
 
     <div class="container">
+        <div class="name">
+            <h3>{{$name}}</h3>
+        </div>
         <!-- Example row of columns -->
         <div class="row">
 
