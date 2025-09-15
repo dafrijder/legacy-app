@@ -13,7 +13,7 @@
 
     <p>{{ __('introduction_texts.type_list', ['brand'=>$brand->name]) }}</p>
 
-
+    <div class="manual-list">
         @foreach ($manuals as $manual)
 
             @if ($manual->locally_available)
@@ -23,7 +23,7 @@
                 <a href="{{ $manual->url }}" target="new" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }}</a>
             @endif
 
-            <br />
         @endforeach
-
+    </div>
+    
 </x-layouts.app>
