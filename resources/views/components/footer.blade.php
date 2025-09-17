@@ -1,6 +1,25 @@
 
 <footer>
 	© {{ __('misc.copyright') }}
+  <div class="footer-links">
+    <div>
+      <p>Over ons</p>
+      <p><a href="">over ons</a></p>
+      <p><a href="">missie</a></p>
+      <p><a href="">privacy</a></p>
+    </div>
+    <div>
+      <p>Contacts</p>
+      <p><a href="">Email</a></p>
+      <p><a href="">Telefoon</a></p>
+    </div>
+    <div>
+      <p>Socials</p>
+      <p><a href="">facebook</a></p>
+      <p><a href="">instagram</a></p>
+      <p><a href="">X</a></p>
+    </div>
+  </div>
 </footer>
 
 
