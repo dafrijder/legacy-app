@@ -65,6 +65,15 @@ body {
     background-color: #f8fafc;
 }
 
+footer{
+    font-size: 1.125rem;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    background-color: #343a40;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important;
 }
