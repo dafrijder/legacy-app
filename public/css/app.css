@@ -73,6 +73,11 @@ footer{
     padding: 1rem;
     background-color: #343a40;
 }
+.footer-links{
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
 
 [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important;
