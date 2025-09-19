@@ -21,4 +21,5 @@
         <a href="{{ $manual->url }}" target="new" alt="Download your manual here" title="Download your manual here">Click here to download the manual</a>
     @endif
 
+    <p>Deze handleiding is {{ $manual->visit_count }} keer bekeken.</p>
 </x-layouts.app>
