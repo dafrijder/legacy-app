@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +38,7 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NameController;
 
+
 // Homepage
 Route::get('/', function () {
     $brands = Brand::all()->sortBy('name');
@@ -61,4 +65,16 @@ Route::get('/generateSitemap/', [SitemapController::class, 'generate']);
 
 Route::get('/contact', function () {
     return view('pages.contactformulier');
+});
+
+Route::post('/contact', function (Request $request) {
+    $data = "Naam: " . $request->name . "\n" .
+            "E-mail: " . $request->email . "\n" .
+            "Bericht: " . $request->message . "\n" .
+            "-----------------------------\n";
+
+    // Sla op in storage/app/contact.txt
+    Storage::append('contact.txt', $data);
+
+    return redirect('/contact')->with('success', 'Je bericht is opgeslagen!');
 });
