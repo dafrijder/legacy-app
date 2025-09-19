@@ -10,7 +10,7 @@
 
     <div class="brand-page">
         <h1>{{ $brand->name }}</h1>
-
+        
         <p>{{ __('introduction_texts.type_list', ['brand'=>$brand->name]) }}</p>
         <p>Totaal aantal keer bekeken voor {{ $brand->name }}: {{ $totalVisits }}</p>
 
@@ -18,14 +18,17 @@
         <div class="manual-list">
             @foreach ($manuals as $manual)
                 <li>
-                @if ($manual->locally_available)
+                    <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }}</a>
+                    ({{$manual->filesize_human_readable}})
+                    
+                {{-- @if ($manual->locally_available)
                     
                     <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }}</a>
                     ({{$manual->filesize_human_readable}})
                     
                 @else
                     <a href="{{ $manual->url }}" target="new" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }}</a>
-                @endif
+                @endif --}}
                 </li>
 
             @endforeach
