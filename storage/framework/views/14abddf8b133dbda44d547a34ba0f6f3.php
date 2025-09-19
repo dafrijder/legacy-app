@@ -2,6 +2,7 @@
     <div class="container">
         <div class="navbar-header mr-auto">
             <a class="navbar-brand" href="/" title="<?php echo e(__('misc.home_alt')); ?>"><?php echo e(__('misc.homepage_title')); ?></a>
+            <a class="navbar-brand" href="/contact" title="<?php echo e(__('contact')); ?>"><?php echo e(__('contacteer ons')); ?></a>
         </div>
         <div id="navbar" class="form-inline">
 
