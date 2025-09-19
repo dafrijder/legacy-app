@@ -12,6 +12,7 @@
       <p>Contacts</p>
       <p><a href="">Email</a></p>
       <p><a href="">Telefoon</a></p>
+      <p><a href="/contact">Contactformulier</a></p>
     </div>
     <div>
       <p>Socials</p>
