@@ -34,8 +34,8 @@
             <h3><?php echo e($name); ?></h3>
 
             <ol>
-                <?php for($i = 0; $i < 5 && $i < count($sortedManuals); $i++): ?>
-                    <li><?php echo e($sortedManuals[$i]->name); ?> - <?php echo e($sortedManuals[$i]->visit_count); ?></li>
+                <?php for($i = 0; $i < 10 && $i < count($sortedManuals); $i++): ?>
+                    <li><?php echo e($brands->where('id', $sortedManuals[$i]->brand_id)->first()->name); ?>: <?php echo e($sortedManuals[$i]->name); ?> - <?php echo e($sortedManuals[$i]->visit_count); ?></li>
                 <?php endfor; ?>
             </ol>
         </div>

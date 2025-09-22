@@ -24,8 +24,8 @@
             <h3>{{$name}}</h3>
 
             <ol>
-                @for ($i = 0; $i < 5 && $i < count($sortedManuals); $i++)
-                    <li>{{ $sortedManuals[$i]->name }} - {{ $sortedManuals[$i]->visit_count }}</li>
+                @for ($i = 0; $i < 10 && $i < count($sortedManuals); $i++)
+                    <li>{{$brands->where('id', $sortedManuals[$i]->brand_id)->first()->name}}: {{ $sortedManuals[$i]->name }} - {{ $sortedManuals[$i]->visit_count }}</li>
                 @endfor
             </ol>
         </div>
