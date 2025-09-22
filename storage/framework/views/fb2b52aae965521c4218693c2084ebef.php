@@ -32,6 +32,12 @@
     <div class="container">
         <div class="name">
             <h3><?php echo e($name); ?></h3>
+
+            <ol>
+                <?php for($i = 0; $i < 5 && $i < count($sortedManuals); $i++): ?>
+                    <li><?php echo e($sortedManuals[$i]->name); ?> - <?php echo e($sortedManuals[$i]->visit_count); ?></li>
+                <?php endfor; ?>
+            </ol>
         </div>
         <!-- Example row of columns -->
         <div class="row">

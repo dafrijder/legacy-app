@@ -22,6 +22,12 @@
     <div class="container">
         <div class="name">
             <h3>{{$name}}</h3>
+
+            <ol>
+                @for ($i = 0; $i < 5 && $i < count($sortedManuals); $i++)
+                    <li>{{ $sortedManuals[$i]->name }} - {{ $sortedManuals[$i]->visit_count }}</li>
+                @endfor
+            </ol>
         </div>
         <!-- Example row of columns -->
         <div class="row">

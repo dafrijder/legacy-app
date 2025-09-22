@@ -37,13 +37,15 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NameController;
-
+use App\Models\Manual;
 
 // Homepage
 Route::get('/', function () {
     $brands = Brand::all()->sortBy('name');
+    $manuals = Manual::all()->sortBy('visit_count');
+    $sortedManuals = $manuals->sortByDesc('visit_count')->values();
     $name = 'legacy-app';
-    return view('pages.homepage', compact('brands'))->with('name', $name);
+    return view('pages.homepage', compact('brands', 'manuals'))->with('name', $name)->with('sortedManuals', $sortedManuals);
 })->name('home');
 
 Route::get('/manual/{language}/{brand_slug}/', [RedirectController::class, 'brand']);
