@@ -20,6 +20,7 @@
     ?>
 
     <div class="container">
+
         <div class="name">
             <h3>{{$name}}</h3>
 
@@ -29,6 +30,10 @@
                 @endfor
             </ol>
         </div>
+
+        <h2>Alle merken</h2>
+        <p>Ga naar letter:</p>
+        <div class="alphabet-nav" id="alphabetNav"></div>
         <!-- Example row of columns -->
         <div class="row">
 
@@ -43,8 +48,8 @@
 
                             if (!isset($header_first_letter) || (isset($header_first_letter) && $current_first_letter != $header_first_letter)) {
                                 echo '</ul>
-						<h2>' . $current_first_letter . '</h2>
-						<ul>';
+                                <h2 class="alphabet-header" id="' . $current_first_letter . '">' . $current_first_letter . '</h2>
+                                <ul>';
                             }
                             $header_first_letter = $current_first_letter
                             ?>
@@ -64,4 +69,34 @@
         </div>
 
     </div>
+
+<script>
+  const nav = document.getElementById("alphabetNav");
+
+  // Loop van A tot Z
+  const letters = [];
+  for (let i = 65; i <= 90; i++) {
+    const letter = String.fromCharCode(i);
+
+    // Check of er een header met dit id bestaat
+    if (document.getElementById(letter)) {
+      letters.push(letter);
+    }
+  }
+
+  // Voeg de letters toe met streepjes ertussen
+  letters.forEach((letter, index) => {
+    const link = document.createElement("a");
+    link.href = "#" + letter;
+    link.textContent = letter;
+    nav.appendChild(link);
+
+    // Voeg een streepje toe als het niet de laatste letter is
+    if (index < letters.length - 1) {
+      const dash = document.createTextNode(" - ");
+      nav.appendChild(dash);
+    }
+  });
+</script>
+
 </x-layouts.app>
