@@ -3,6 +3,17 @@
         <div class="navbar-header mr-auto">
             <a class="navbar-brand" href="/" title="<?php echo e(__('misc.home_alt')); ?>"><?php echo e(__('misc.homepage_title')); ?></a>
             <a class="navbar-brand" href="/contact" title="<?php echo e(__('contact')); ?>"><?php echo e(__('contacteer ons')); ?></a>
+            
+            <?php
+                $currentLocale = app()->getLocale();
+                $switchLocale = $currentLocale === 'nl' ? 'en' : 'nl';
+            ?>
+            <a id="lang"
+               class="btn btn-outline-light ml-2"
+               href="<?php echo e(url('/language/' . $switchLocale)); ?>">
+                <?php echo e(strtoupper($switchLocale)); ?>
+
+            </a>
         </div>
         <div id="navbar" class="form-inline">
 

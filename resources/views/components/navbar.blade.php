@@ -3,6 +3,16 @@
         <div class="navbar-header mr-auto">
             <a class="navbar-brand" href="/" title="{{ __('misc.home_alt') }}">{{ __('misc.homepage_title') }}</a>
             <a class="navbar-brand" href="/contact" title="{{ __('contact') }}">{{ __('contacteer ons') }}</a>
+            {{-- Taal switch knop --}}
+            @php
+                $currentLocale = app()->getLocale();
+                $switchLocale = $currentLocale === 'nl' ? 'en' : 'nl';
+            @endphp
+            <a id="lang"
+               class="btn btn-outline-light ml-2"
+               href="{{ url('/language/' . $switchLocale) }}">
+                {{ strtoupper($switchLocale) }}
+            </a>
         </div>
         <div id="navbar" class="form-inline">
 
