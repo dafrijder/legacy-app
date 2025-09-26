@@ -44,6 +44,10 @@
         <h2>Alle merken</h2>
         <p>Ga naar letter:</p>
         <div class="alphabet-nav" id="alphabetNav"></div>
+        <button id="reset" class="btn btn-outline-dark ml-2">reset</button>
+
+        <a class="btn btn-outline-dark ml-2" href="<?php echo e(route('categories')); ?>">Sorteer op Categorieën</a>
+
         <!-- Example row of columns -->
         <div class="row">
 
@@ -107,6 +111,48 @@
       nav.appendChild(dash);
     }
   });
+
+  //als je op de letter klikt, laat alleen de merken zien die met die letter beginnen andere niet
+    nav.addEventListener("click", function(event) {
+        if (event.target.tagName === "A") {
+        event.preventDefault();
+        const selectedLetter = event.target.textContent;
+    
+        // Verberg alle merken
+        const allHeaders = document.querySelectorAll(".alphabet-header");
+        allHeaders.forEach(header => {
+            header.style.display = "none";
+            let nextElement = header.nextElementSibling;
+            while (nextElement && !nextElement.classList.contains("alphabet-header")) {
+            nextElement.style.display = "none";
+            nextElement = nextElement.nextElementSibling;
+            }
+        });
+    
+        // Toon alleen de merken die met de geselecteerde letter beginnen
+        const selectedHeader = document.getElementById(selectedLetter);
+        if (selectedHeader) {
+            selectedHeader.style.display = "block";
+            let nextElement = selectedHeader.nextElementSibling;
+            while (nextElement && !nextElement.classList.contains("alphabet-header")) {
+            nextElement.style.display = "block";
+            nextElement = nextElement.nextElementSibling;
+            }
+        }
+        }
+    });
+    document.getElementById("reset").addEventListener("click", function() {
+        // Toon alle merken
+        const allHeaders = document.querySelectorAll(".alphabet-header");
+        allHeaders.forEach(header => {
+            header.style.display = "block";
+            let nextElement = header.nextElementSibling;
+            while (nextElement && !nextElement.classList.contains("alphabet-header")) {
+            nextElement.style.display = "block";
+            nextElement = nextElement.nextElementSibling;
+            }
+        });
+    });
 </script>
 
  <?php echo $__env->renderComponent(); ?>

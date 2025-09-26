@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    
+    public function getNameUrlEncodedAttribute()
+    {
+        $name_url_encoded = str_replace('/','',$this->name);
+
+        return $name_url_encoded;
+    }
 }

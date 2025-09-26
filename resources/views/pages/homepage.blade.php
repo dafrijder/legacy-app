@@ -34,7 +34,10 @@
         <h2>Alle merken</h2>
         <p>Ga naar letter:</p>
         <div class="alphabet-nav" id="alphabetNav"></div>
-        <button id="reset">reset</button>
+        <button id="reset" class="btn btn-outline-dark ml-2">reset</button>
+
+        <a class="btn btn-outline-dark ml-2" href="{{ route('categories') }}">Sorteer op Categorieën</a>
+
         <!-- Example row of columns -->
         <div class="row">
 

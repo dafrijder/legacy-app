@@ -28,8 +28,8 @@
         <div class="manual-list">
             @foreach ($manuals as $manual)
                 <div>
-                    <button href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }} <span style='color:green; text-decoration: underline;'>&#8681;</span></button>
-                    ({{$manual->filesize_human_readable}})
+                    <button class="btn btn-outline-dark ml-2" href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }} <span style='color:green; text-decoration: underline;'>&#8681;</span></button>
+                    <br>({{$manual->filesize_human_readable}})
                     
                 {{-- @if ($manual->locally_available)
                     

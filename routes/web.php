@@ -33,10 +33,11 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ManualController;
-use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NameController;
+use App\Models\Category;
 use App\Models\Manual;
 
 // Homepage
@@ -47,6 +48,14 @@ Route::get('/', function () {
     $name = 'legacy-app';
     return view('pages.homepage', compact('brands', 'manuals'))->with('name', $name)->with('sortedManuals', $sortedManuals);
 })->name('home');
+
+// Page for product categories (not yet implemented)
+Route::get('/categories', function () {
+    $categories = Category::all()->sortBy('name');
+    return view('pages.category', compact('categories'));
+})->name('categories');
+
+Route::get('/categories/{category_id}/{category_slug}/', [CategoryController::class, 'show']);
 
 Route::get('/manual/{language}/{brand_slug}/', [RedirectController::class, 'brand']);
 Route::get('/manual/{language}/{brand_slug}/brand.html', [RedirectController::class, 'brand']);
