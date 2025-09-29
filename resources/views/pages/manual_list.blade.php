@@ -28,7 +28,7 @@
         <div class="manual-list">
             @foreach ($manuals as $manual)
                 <div>
-                    <button class="btn btn-outline-dark ml-2" href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }} <span style='color:green; text-decoration: underline;'>&#8681;</span></button>
+                    <a class="btn btn-outline-dark ml-2" href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="{{ $manual->name }}" title="{{ $manual->name }}">{{ $manual->name }} <span style='color:green; text-decoration: underline;'>&#8681;</span></a>
                     <br>({{$manual->filesize_human_readable}})
                     
                 {{-- @if ($manual->locally_available)
